@@ -1,0 +1,23 @@
+// This file is part of the materials accompanying the book 
+// "The Elements of Computing Systems" by Nisan and Schocken, 
+// MIT Press. Book site: www.idc.ac.il/tecs
+// File name: projects/03/a/Bit.hdl
+
+/**
+ * 1-bit register.
+ * If load[t]=1 then out[t+1] = in[t]
+ *              else out does not change (out[t+1]=out[t])
+ */
+
+CHIP Bit {
+    IN in, load;
+    OUT out;
+
+    PARTS:
+	// If load=1 use the new value, else use the old one
+    Mux(a=tminus1, b=in, sel=load, out=newout);
+	
+	// Get the old value
+	DFF(in=newout, out=out, out=tminus1);
+	
+}
